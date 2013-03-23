@@ -1,0 +1,11 @@
+"AddonInfo"
+{
+	"name"				"CSC | Cross server chat"
+	"version"			"0.1a"
+	"up_date"			"21/03/13"
+	"author_name"			"Matt Walton"
+	"author_email"			"matt@gmanager.net"
+	"author_url"			"http://matt-walton.net"
+	"info"				"Cross server chat"
+	"override"			"0"
+}
