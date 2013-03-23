@@ -65,12 +65,22 @@
 
 <p>Adding servers in CSC is simple, all it requires is for that server to be running the CSC addon.</p>
 
-<p><code>csc.addServer("IP", PORT)</code></p>
+<p>Add the following code to the bottom of sv_csc_config.lua
+<code>csc.addServer("IP", PORT)</code></p>
 
 <p>Replace IP with the IP or hostname of the server you wish to add, be sure to keep the quotation marks.
 Replace PORT with the port you defined in csc.config.port on the server you wish to add.</p>
 
 <p>Continue this process for each server you wish to add, there are no limits for the amounts of servers in CSC.</p>
+
+<h3>Configuring cl_csc_config.lua</h3>
+
+<p>cl_csc_config.lua contains settings for the aesthetics of CSC.</p>
+
+<p>You can get the RGB Color codes required from <a href="http://www.colorspire.com/rgb-color-wheel/">this link</a></p>
+
+<p><strong><em>csc.config.idcolor</em></strong> - Sets the color of the ID chat tag.
+<strong><em>csc.config.namecolor</em></strong> - Sets the color of the name chat tag.</p>
       </section>
       <footer>
         <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
