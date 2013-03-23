@@ -82,6 +82,36 @@ Replace PORT with the port you defined in csc.config.port on the server you wish
 <p><strong><em>csc.config.idcolor</em></strong> - Sets the color of the ID chat tag.</p>
 
 <p><strong><em>csc.config.namecolor</em></strong> - Sets the color of the name chat tag.</p>
+
+<h2>Developing with CSC</h2>
+
+<p>I decided to make a PHP class so that people can integrate CSC with their community website easily.</p>
+
+<p>The class file can be found <a href="https://github.com/MattWalton12/CSC/blob/master/misc/csc.class.php">here</a>.</p>
+
+<h3>Basic example</h3>
+
+<p><code>require_once("csc.class.php");</code> You first need to include the class file so we can use its functionality in our script.</p>
+
+<p><code>$chat = new CSC("127.0.0.1", 13375, "abc123", "WEB");</code> Create a new CSC object.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ol>
+<li>Host/IP of the remote server you wish to communicate with.</li>
+<li>The CSC port of the remote server.</li>
+<li>The password of the remote server.</li>
+<li>The ID that will show up in the chat , use "" to not use an ID.</li>
+</ol><p><code>$chat-&gt;send("Matt", "Hello world!");</code> - Sends the message Hello world! with the player name of Matt into the chat on the remote server, you can also specify "" as the first parameter to get rid of the name.</p>
+
+<h3>Additional functions</h3>
+
+<p>I added some additional functions to make it easy to communicate with multiple servers without creating multiple php objects.</p>
+
+<p><code>$chat-&gt;setHost($HOST)</code> - Update the host/IP of the remote server.
+<code>$chat-&gt;setPort($PORT)</code> - Update the port of the remote server.
+<code>$chat-&gt;setPassword($PASSWORD)</code> - Update the password of the remote server.
+<code>$chat-&gt;setID($ID)</code> - Update the ID</p>
       </section>
       <footer>
         <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
