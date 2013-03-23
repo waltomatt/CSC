@@ -1,33 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Csc by MattWalton12</title>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Csc : CSC: A cross server chat module for Garry's Mod 13" />
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Csc</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Csc</h1>
-        <p>CSC: A cross server chat module for Garry's Mod 13</p>
 
-        <p class="view"><a href="https://github.com/MattWalton12/CSC">View the Project on GitHub <small>MattWalton12/CSC</small></a></p>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/MattWalton12/CSC">View on GitHub</a>
 
+          <h1 id="project_title">Csc</h1>
+          <h2 id="project_tagline">CSC: A cross server chat module for Garry's Mod 13</h2>
 
-        <ul>
-          <li><a href="https://github.com/MattWalton12/CSC/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/MattWalton12/CSC/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/MattWalton12/CSC">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/MattWalton12/CSC/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/MattWalton12/CSC/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
         <h2>Introduction</h2>
 
 <p>This is an addon I created for garry's mod due to the massive demand for an addon that makes it possible to communicate across many servers.</p>
@@ -45,7 +48,7 @@
 
 <h3>Configuring sv_csc_config.lua</h3>
 
-<p><strong>csc.config.port</strong> - This is the port that the chat server runs on, this can be unique on each server as long as you use the port you defined when it comes to adding the servers.</p>
+<p><strong>csc.config.port</strong> - This is the port that the chat server runs on, this can be unique on each server as long as you use the port you defined when it comes to adding the servers. <em>You cannot use the same port and IP as another CSC server</em></p>
 
 <p><strong>csc.config.password</strong> - This <em>must</em> be the same on all servers, this password is required so people cannot remotely spam your chat. I also recommend you use a strong password.</p>
 
@@ -60,13 +63,27 @@
 <p><strong>csc.config.cooldown</strong> - When using a chat command, you have the option to have a cooldown. This is the amount of seconds that cooldown lasts for (set to 0 to disable).</p>
 
 <h3>Adding servers</h3>
+
+<p>Adding servers in CSC is simple, all it requires is for that server to be running the CSC addon.</p>
+
+<p><code>csc.addServer("IP", PORT)</code></p>
+
+<p>Replace IP with the IP or hostname of the server you wish to add, be sure to keep the quotation marks.
+Replace PORT with the port you defined in csc.config.port on the server you wish to add.</p>
+
+<p>Continue this process for each server you wish to add, there are no limits for the amounts of servers in CSC.</p>
       </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/MattWalton12">MattWalton12</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Csc maintained by <a href="https://github.com/MattWalton12">MattWalton12</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+
     
+
   </body>
 </html>
