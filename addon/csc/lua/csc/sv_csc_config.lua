@@ -10,7 +10,7 @@ csc.config.showonsent = true // Show the global chat on the same server that sen
 // Chat command only settings
 csc.config.cooldown = 5 // Cooldown for global chat (in seconds)
 
-csc.addServer("192.168.1.76", 13375) // Setup the first server, duplicate this for each entry
+csc.addServer("192.168.1.65", 13375) // Setup the first server, duplicate this for each entry
 
 /* Setting up permissions / custom checks */
 /* Un-comment examples to use them */

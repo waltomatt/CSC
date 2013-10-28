@@ -9,10 +9,16 @@
 util.AddNetworkString("csc.newMessage")
 
 csc = {} // Keep everything organized in a nice table
-csc.config = {} 
+csc.config = {}
 csc.config.servers = {}
 csc.bannedips = {}
 csc.bipl = {}
+
+csc.playerCooldowns = {} // neatening up the player variables
+csc.storedMessages = {};
+
+local CSC_ACTION_MESSAGE    = 0;
+local CSC_ACTION_GET        = 1;
 
 function csc.addServer(host, port)
 	table.insert(csc.config.servers, {host = host, port= port})
@@ -22,7 +28,7 @@ include("sv_csc_config.lua") // include the configuration file
 
 require("glsock2")
 
-if !GLSock then 
+if !GLSock then
 	MsgC(Color(255, 20, 20), "[CSC]: GLSOCK NOT FOUND, CSC CAN NOT RUN.\n")
 	return
 end
@@ -46,24 +52,64 @@ function csc.receive(sock, client, err)
 				client:Close()
 			end)
 		else
-			client:Read(1024, function(_, buff, err)  // Read the clients request			
+
+			client:Read(1024, function(_, buff, err)  // Read the clients request
 				if (err == GLSOCK_ERROR_SUCCESS) then
+
 					local _, resp = buff:Read(buff:Size())
 					resp = string.Explode("\n", resp)
-					local pass, id, name, text = resp[1] , resp[2], resp[3], resp[4] // Explode our client message
+                    local pass, ty, id = resp[1], tonumber(resp[2]), resp[3];
+
 					if (pass == csc.config.password) then // Check password
-						csc.print("Received message from "..id.." ("..ip.."): "..text) 
-						res:WriteString("success") 
-						csc.doMessage(id, name, text) // Send message to clients
+
+						if (ty == CSC_ACTION_MESSAGE) then
+                            local name,  text = resp[4], resp[5]
+
+                            if (name and text) then
+
+                                csc.print("Received message from "..id.." ("..ip.."): "..text)
+    					        res:WriteString("success")
+    						    csc.doMessage(id, name, text) // Send message to clients
+
+                                table.insert(csc.storedMessages, {
+                                    name = name,
+                                    server = csc.config.id,
+                                    time = os.date(),
+                                    message = text
+                                });
+
+                            end
+
+                        elseif (ty == CSC_ACTION_GET) then
+                            local max = tonumber(resp[4]);
+
+                            csc.print("Sending recent messages");
+
+                            local ordered = {};
+                            local max = #csc.storedMessages;
+
+                            for k, __ in pairs(csc.storedMessages) do
+                                if (k <= max) then
+                                    table.insert(ordered, csc.storedMessages[max-k]);
+                                else
+                                    break;
+                                end
+                            end
+
+                            res:WriteString(util.TableToJSON(ordered));
+                        end
+
 					else
 						csc.print("Invalid remote password from "..ip) // Decline due to invalid password
 						res:WriteString("invalid-password")
 						csc.bipl[ip] = csc.bipl[ip] or 0
 						csc.bipl[ip] = csc.bipl[ip] + 1
+
 						if (csc.bipl[ip] >= csc.config.faillimit) then
 							csc.addBan(ip)
 						end
 					end
+
 					client:Send(res, function() // Send the client our response
 						client:Close()
 					end)
@@ -96,13 +142,21 @@ function csc.init()
 			csc.print("Failed to bind to port "..csc.config.port, true)
 		end
 	end)
+
 	csc.loadBans()
+end
+
+function csc.encodeMessage(msg)
+    return string.Implode("\n", msg)
 end
 
 function csc.sendMessage(text, ply)
 	local buff = GLSockBuffer()
 	local nick = ply:Nick()
-	local msg = csc.config.password.."\n"..csc.config.id.."\n"..nick.."\n"..text // Encode message string
+    local steamid = ply:SteamID()
+
+	local msg = csc.encodeMessage({csc.config.password, CSC_ACTION_MESSAGE, csc.config.id, nick, steamid, text});
+
 	buff:WriteString(msg) // Prepare buffer
 
 	for k,v in pairs(csc.config.servers) do	// Loop through our servers
@@ -134,11 +188,12 @@ function csc.addBan(ip)
 	csc.print("Banned IP: "..ip)
 end
 
-function csc.doMessage(id, ply, text, force)
+function csc.doMessage(id, name, text, force)
 	if (id == csc.config.id and !force) then return end
+
 	net.Start("csc.newMessage")
 		net.WriteString(id)
-		net.WriteString(ply)
+		net.WriteString(name)
 		net.WriteString(text)
 	net.Broadcast()
 end
@@ -151,10 +206,12 @@ hook.Add("PlayerSay", "csc.playerSay", function(ply, text)
 		if (_ttab[1]:lower() == csc.config.chatcmd) then // If the first word is our designated cmd
 			table.remove(_ttab, 1)
 			local text = string.Trim(string.Implode(" ", _ttab))
+
 			if (text != "") then
-				ply._csccd = ply._csccd or 0
-				if (ply._csccd > CurTime()) then // Check cooldown
-					ply:ChatPrint("You cannot use global chat for another "..math.ceil(ply._csccd - CurTime()).." seconds!")
+				csc.playerCooldowns[ply] = csc.playerCooldowns[ply] or 0
+
+				if (csc.playerCooldowns[ply] > CurTime()) then // Check cooldown
+					ply:ChatPrint("You cannot use global chat for another "..math.ceil(csc.playerCooldowns[ply] - CurTime()).." seconds!")
 					return ""
 				end
 
@@ -167,7 +224,15 @@ hook.Add("PlayerSay", "csc.playerSay", function(ply, text)
 				if (csc.config.showonsent) then
 					csc.doMessage(csc.config.id, ply:Nick(), text, true)
 				end
-				ply._csccd = CurTime() + csc.config.cooldown // Add the cooldown timer
+
+                table.insert(csc.storedMessages, {
+                    name = ply:Nick(),
+                    server = csc.config.id,
+                    time = os.date(),
+                    message = text
+                });
+
+				csc.playerCooldowns[ply] = CurTime() + csc.config.cooldown // Add the cooldown timer
 			end
 			return ""
 		end
