@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -16,38 +15,41 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1 class="header">CSC</h1>
-        <p class="header">CSC: A cross server chat module for Garry's Mod 13</p>
+        <h1>CSC</h1>
+        <p>CSC: A cross server chat module for Garry's Mod 13</p>
+
+        <p class="view"><a href="https://github.com/MattWalton12/CSC">View the Project on GitHub <small>MattWalton12/CSC</small></a></p>
+
 
         <ul>
-          <li class="download"><a class="buttons" href="https://github.com/MattWalton12/CSC/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/MattWalton12/CSC/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/MattWalton12/CSC">View On GitHub</a></li>
+          <li><a href="https://github.com/MattWalton12/CSC/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/MattWalton12/CSC/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/MattWalton12/CSC">View On <strong>GitHub</strong></a></li>
         </ul>
-
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/MattWalton12">MattWalton12</a></p>
-
-
       </header>
       <section>
         <p><img src="http://mattwalton12.github.com/CSC/images/csc.png" alt="CSC"></p>
 
-<h2>Introduction</h2>
+<h2>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
 <p>This is an addon I created for garry's mod due to the massive demand for an addon that makes it possible to communicate across many servers.</p>
 
-<h2>Installation</h2>
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
 <p>This addon <strong>REQUIRES</strong> <a href="http://facepunch.com/showthread.php?t=1234005">gmsv_glsock2</a>. Unfortunately, this module is currently only available for windows, if someone could compile it for linux I would love them forever &lt;3.</p>
 
 <ol>
 <li><p>Download and place <a href="https://mattmodules.googlecode.com/svn/trunk/gm_glsock/Release/gmsv_glsock2_win32.dll">gmsv_glsock2_win32.dll</a> into garrysmod/lua/bin in the servers you wish to run this addon on.</p></li>
 <li><p>Download the CSC zip file , extract addons/csc and place the csc folder the addons folders on the servers you wish to run this addon on.</p></li>
-</ol><h2>Configuration</h2>
+</ol><h2>
+<a name="configuration" class="anchor" href="#configuration"><span class="octicon octicon-link"></span></a>Configuration</h2>
 
 <p>In CSC there are two configuration files, they are both located in csc/lua/csc/ in your addons folder.</p>
 
-<h3>Configuring sv_csc_config.lua</h3>
+<h3>
+<a name="configuring-sv_csc_configlua" class="anchor" href="#configuring-sv_csc_configlua"><span class="octicon octicon-link"></span></a>Configuring sv_csc_config.lua</h3>
 
 <p><strong>csc.config.port</strong> - This is the port that the chat server runs on, this can be unique on each server as long as you use the port you defined when it comes to adding the servers. <em>You cannot use the same port and IP as another CSC server</em>. This port also CANNOT be the same port as your game server.</p>
 
@@ -63,7 +65,8 @@
 
 <p><strong>csc.config.cooldown</strong> - When using a chat command, you have the option to have a cooldown. This is the amount of seconds that cooldown lasts for (set to 0 to disable).</p>
 
-<h3>Adding servers</h3>
+<h3>
+<a name="adding-servers" class="anchor" href="#adding-servers"><span class="octicon octicon-link"></span></a>Adding servers</h3>
 
 <p>Adding servers in CSC is simple, all it requires is for that server to be running the CSC addon.</p>
 
@@ -75,7 +78,8 @@ Replace PORT with the port you defined in csc.config.port on the server you wish
 
 <p>Continue this process for each server you wish to add, there are no limits for the amounts of servers in CSC.</p>
 
-<h3>Configuring cl_csc_config.lua</h3>
+<h3>
+<a name="configuring-cl_csc_configlua" class="anchor" href="#configuring-cl_csc_configlua"><span class="octicon octicon-link"></span></a>Configuring cl_csc_config.lua</h3>
 
 <p>cl_csc_config.lua contains settings for the aesthetics of CSC.</p>
 
@@ -85,13 +89,15 @@ Replace PORT with the port you defined in csc.config.port on the server you wish
 
 <p><strong><em>csc.config.namecolor</em></strong> - Sets the color of the name chat tag.</p>
 
-<h2>Developing with CSC</h2>
+<h2>
+<a name="developing-with-csc" class="anchor" href="#developing-with-csc"><span class="octicon octicon-link"></span></a>Developing with CSC</h2>
 
 <p>I decided to make a PHP class so that people can integrate CSC with their community website easily.</p>
 
 <p>The class file can be found <a href="https://github.com/MattWalton12/CSC/blob/master/misc/csc.class.php">here</a>.</p>
 
-<h3>Basic example</h3>
+<h3>
+<a name="basic-example" class="anchor" href="#basic-example"><span class="octicon octicon-link"></span></a>Basic example</h3>
 
 <p><code>require_once("csc.class.php");</code> You first need to include the class file so we can use its functionality in our script.</p>
 
@@ -106,7 +112,21 @@ Replace PORT with the port you defined in csc.config.port on the server you wish
 <li>The ID that will show up in the chat , use "" to not use an ID.</li>
 </ol><p><code>$chat-&gt;send("Matt", "Hello world!");</code> - Sends the message Hello world! with the player name of Matt into the chat on the remote server, you can also specify "" as the first parameter to get rid of the name.</p>
 
-<h3>Additional functions</h3>
+<p><code>$chat-&gt;get(5);</code> - Gets the last 5 messages on the server, return type is object.</p>
+
+<p><strong>Chat Get Object:</strong></p>
+
+<p>The structure of the object returned from the get function is as follows</p>
+
+<pre><code>Message
+ &gt; name (Name of player who sent message)
+ &gt; server (ID of server which sent message)
+ &gt; time (Time message was received)
+ &gt; message (Message text)
+</code></pre>
+
+<h3>
+<a name="additional-functions" class="anchor" href="#additional-functions"><span class="octicon octicon-link"></span></a>Additional functions</h3>
 
 <p>I added some additional functions to make it easy to communicate with multiple servers without creating multiple php objects.</p>
 
@@ -119,10 +139,11 @@ Replace PORT with the port you defined in csc.config.port on the server you wish
 <p><code>$chat-&gt;setID($ID)</code> - Update the ID</p>
       </section>
       <footer>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+        <p>This project is maintained by <a href="https://github.com/MattWalton12">MattWalton12</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		
+    <script src="javascripts/scale.fix.js"></script>
+    
   </body>
 </html>
