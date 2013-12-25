@@ -63,7 +63,7 @@ function csc.receive(sock, client, err)
 					if (pass == csc.config.password) then // Check password
 
 						if (ty == CSC_ACTION_MESSAGE) then
-                            local name,  text = resp[4], resp[5]
+                            local name,  text = resp[4], resp[6]
 
                             if (name and text) then
 
